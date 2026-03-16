@@ -44,7 +44,7 @@ const Banner = () => {
             <img src={bannerImg} alt="" />
          </div>
 
-         <div className="mt-0.5 bg-linear-to-t from-[#9b5ff1] to-[#6c36e5] py-20">
+         <div className=" bg-linear-to-t from-[#9b5ff1] to-[#6c36e5] py-20">
             <h2 className="text-white text-4xl font-bold text-center">
                Trusted by Millions, Built for You
             </h2>
