@@ -18,12 +18,12 @@ const AppCard = ({ app }) => {
    } = app;
    return (
       <Link to={`/details/${id}`}>
-         <div className="card bg-base-100 shadow-sm rounded-xl h-full flex flex-col border border-gray-100">
+         <div className="card bg-base-100 shadow-sm rounded h-full flex flex-col border border-gray-100">
             <figure className="p-3 pb-0">
                <img
                   src={image}
                   alt={title}
-                  className="rounded-lg w-full  h-72 aspect-3/4 object-cover bg-gray-50"
+                  className="rounded-md w-full  h-72 aspect-3/4 object-cover bg-gray-50"
                />
             </figure>
 

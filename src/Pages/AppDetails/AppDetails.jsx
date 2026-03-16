@@ -5,6 +5,7 @@ import { FaStar } from 'react-icons/fa';
 import download from '../../assets/icon-downloads.png';
 import rating from '../../assets/icon-ratings.png';
 import review from '../../assets/icon-review.png';
+import RatingChart from '../../Components/RatingChart';
 
 const AppDetails = () => {
    const apps = useLoaderData();
@@ -27,18 +28,15 @@ const AppDetails = () => {
    return (
       <Section>
          <div className="py-20">
-            {/* grid-cols-11 ঠিক আছে, তবে h-full নিশ্চিত করতে হবে */}
-            <div className="grid items-stretch grid-cols-11 gap-5 lg:gap-10">
-               {/* বাম পাশের ইমেজ সেকশন */}
+            <div className="grid  grid-cols-11 gap-5 lg:gap-10">
                <div className="col-span-11 md:col-span-4 lg:col-span-4">
                   <img
-                     className="w-full h-full object-cover rounded-2xl"
+                     className="w-full h-70 object-cover rounded"
                      src={image}
                      alt={title}
                   />
                </div>
 
-               {/* ডান পাশের কন্টেন্ট সেকশন */}
                <div className="col-span-11 md:col-span-7 lg:col-span-7 flex flex-col justify-center space-y-2">
                   <h2 className="text-3xl font-bold">{title}</h2>
                   <p className="text-gray-500">
@@ -50,7 +48,7 @@ const AppDetails = () => {
 
                   <div className="divider my-1"></div>
 
-                  <div className="flex flex-wrap justify-start items-center gap-6 lg:gap-10 py-4">
+                  <div className="flex flex-wrap justify-start items-center gap-10 lg:gap-20 py-4">
                      <div className="space-y-0.5">
                         <img
                            src={download}
@@ -58,7 +56,7 @@ const AppDetails = () => {
                            className="size-6"
                         />
                         <p className="text-sm text-gray-500">Downloads</p>
-                        <h5 className="text-black font-extrabold text-xl">
+                        <h5 className="text-black font-extrabold text-2xl">
                            {downloads}
                         </h5>
                      </div>
@@ -68,8 +66,8 @@ const AppDetails = () => {
                            alt="rating icon"
                            className="size-6"
                         />
-                        <p className="text-sm text-gray-500">Avg Rating</p>
-                        <h5 className="text-black font-extrabold text-xl">
+                        <p className="text-sm text-gray-500">Average Rating</p>
+                        <h5 className="text-black font-extrabold text-2xl">
                            {ratingAvg}
                         </h5>
                      </div>
@@ -80,7 +78,7 @@ const AppDetails = () => {
                            className="size-6"
                         />
                         <p className="text-sm text-gray-500">Total Reviews</p>
-                        <h5 className="text-black font-extrabold text-xl">
+                        <h5 className="text-black font-extrabold text-2xl">
                            {reviews}
                         </h5>
                      </div>
@@ -91,6 +89,15 @@ const AppDetails = () => {
                   </button>
                </div>
             </div>
+            <div className="divider my-8"></div>
+            {/* Charts */}
+            <RatingChart ratings={ratings} />
+            <div className="divider my-6"></div>
+            {/* Descriptions */}
+            <h6 className="mb-3 font-semibold text-lg">Description</h6>
+            <p className="text-gray-500 leading-relaxed space-y-5">
+               {description}
+            </p>
          </div>
       </Section>
    );
