@@ -9,7 +9,7 @@ const Apps = () => {
    return (
       <Section>
          <div className="py-20">
-            <h1 className="text-center font-bold text-5xl">
+            <h1 className="text-center font-bold text-4xl">
                Our All Applications
             </h1>
             <p className="text-center mt-5 text-gray-500">
@@ -17,8 +17,8 @@ const Apps = () => {
                Millions
             </p>
 
-            <div className="my-10 flex items-center justify-center flex-wrap md:justify-between lg:justify-between gap-y-2.5">
-               <p className="text-black font-medium">
+            <div className="my-5 flex items-center justify-center flex-wrap md:justify-between lg:justify-between gap-y-2.5">
+               <p className="text-black text-xl font-semibold">
                   ({apps.length}) Apps Found
                </p>
                <div>

@@ -32,12 +32,12 @@ const Navbar = () => {
          </li>
          <li>
             <NavLink
+               to={'installation'}
                className={({ isActive }) =>
                   isActive
                      ? 'text-purple-600 underline font-medium'
                      : 'font-medium'
                }
-               to={''}
             >
                Installation
             </NavLink>

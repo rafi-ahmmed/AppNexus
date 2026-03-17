@@ -6,13 +6,17 @@ import download from '../../assets/icon-downloads.png';
 import rating from '../../assets/icon-ratings.png';
 import review from '../../assets/icon-review.png';
 import RatingChart from '../../Components/RatingChart';
+import { useEffect, useState } from 'react';
+import {
+   addLocalstorage,
+   getIsInstalledApp,
+} from '../../utilities/localstorage';
+import { toast } from 'react-toastify';
 
 const AppDetails = () => {
    const apps = useLoaderData();
    const { id } = useParams();
-
    const appDetails = apps.find((app) => app.id == parseInt(id));
-   console.log(appDetails);
    const {
       id: appId,
       title,
@@ -25,6 +29,25 @@ const AppDetails = () => {
       downloads,
       ratings,
    } = appDetails;
+   const [install, setInstall] = useState(false);
+
+   const handleInstall = (id) => {
+      setInstall(true);
+      addLocalstorage(id);
+      toast.success(`${title} is successfully installed!`, {
+         autoClose: 2000,
+      });
+   };
+
+   useEffect(() => {
+      const setDownloadStatus = () => {
+         const installedStatus = getIsInstalledApp(appId);
+         // console.log('download Status', installedStatus);
+         setInstall(installedStatus);
+      };
+      setDownloadStatus();
+   }, [appId]);
+   console.log('installed Status', install);
    return (
       <Section>
          <div className="py-20">
@@ -84,8 +107,12 @@ const AppDetails = () => {
                      </div>
                   </div>
 
-                  <button className="btn bg-[#00d390] hover:bg-[#00b97e] border-none text-white w-fit px-8 mt-4">
-                     Install Now ({size})
+                  <button
+                     disabled={install}
+                     onClick={() => handleInstall(appId)}
+                     className={`btn ${install ? 'bg-gray-300 text-slate-600 cursor-not-allowed' : 'bg-[#00d390] hover:bg-[#00b97e] text-white cursor-pointer'}  border-none w-fit px-8 mt-4`}
+                  >
+                     {install ? 'Installed' : `Install Now (${size})`}
                   </button>
                </div>
             </div>
