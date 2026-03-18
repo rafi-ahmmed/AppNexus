@@ -23,7 +23,7 @@ const Apps = () => {
    const handleSearch = (e) => {
       setLoading(true);
       const searchValue = e.target.value.toLowerCase();
-      console.log(searchValue.length);
+      // console.log(searchValue.length);
       if (searchValue.length === 0) {
          setDisplayApps(allApps);
          setLoading(false);

@@ -32,8 +32,8 @@ export const getInstalledApps = () => {
 export const deleteInstalledApp = (id) => {
    const installedApps =
       JSON.parse(localStorage.getItem('installedApps')) || [];
-   console.log('all apps', installedApps);
+   // console.log('all apps', installedApps);
    const remainingApps = installedApps.filter((appId) => appId !== id);
-   console.log('remaining apps', remainingApps);
+   // console.log('remaining apps', remainingApps);
    localStorage.setItem('installedApps', JSON.stringify(remainingApps));
 };

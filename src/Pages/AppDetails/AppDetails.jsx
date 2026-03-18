@@ -20,7 +20,7 @@ const AppDetails = () => {
    const appDetails = apps.find((app) => app.id == parseInt(id)) || {};
    // console.log(Object.keys(appDetails).length);
    const isFoundApp = Object.keys(appDetails).length === 0;
-   console.log(isFoundApp);
+   // console.log(isFoundApp);
    const {
       id: appId,
       title,
@@ -35,7 +35,7 @@ const AppDetails = () => {
    } = appDetails;
    const [install, setInstall] = useState(false);
 
-   const segment = Math.floor(description.length / 3);
+   const segment = Math.floor(description?.length / 3);
 
    const handleInstall = (id) => {
       setInstall(true);
@@ -140,12 +140,12 @@ const AppDetails = () => {
                      {description.slice(0, segment)}
                   </p>
                   <br />
-                 
+
                   <p className="text-gray-500 leading-relaxed space-y-5 first-letter:uppercase">
                      {description.slice(segment, segment * 2)}
                   </p>
                   <br />
-                  
+
                   <p className="text-gray-500 leading-relaxed space-y-5 first-letter:uppercase">
                      {description.slice(segment * 2)}
                   </p>

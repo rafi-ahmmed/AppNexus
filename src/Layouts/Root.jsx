@@ -6,7 +6,7 @@ import NavigationLoading from '../Components/Shared/NavigationLoading';
 
 const Root = () => {
    const { state } = useNavigation();
-   console.log(state);
+   // console.log(state);
    return (
       <div className="container mx-auto">
          <header className="sticky top-0 z-40">

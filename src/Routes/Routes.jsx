@@ -10,7 +10,6 @@ export const router = createBrowserRouter([
    {
       path: '/',
       Component: Root,
-      errorElement: <PageNotFound />,
       children: [
          {
             index: true,
