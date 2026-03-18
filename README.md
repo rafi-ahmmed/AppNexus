@@ -1,4 +1,4 @@
-# 🚀 HeroStack - The Ultimate App Management Platform
+# 🚀 AppNexus - The Ultimate App Management Platform
 
 **AppNexus** is a clean and responsive client-side web application designed for browsing and managing app data. Built as a part of a frontend, it allows users to explore a collection of apps, search in real-time, and simulate an installation experience using local storage.
 
