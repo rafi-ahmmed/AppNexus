@@ -23,7 +23,7 @@ const AppCard = ({ app }) => {
                <img
                   src={image}
                   alt={title}
-                  className="rounded-md w-full  h-72 aspect-3/4 object-cover bg-gray-50"
+                  className="rounded-md w-full  h-72 aspect-3/4 object-cover bg-gray-50 "
                />
             </figure>
 

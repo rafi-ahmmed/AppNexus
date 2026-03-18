@@ -83,7 +83,7 @@ const Navbar = () => {
                >
                   <img className="w-10" src={navLogo} alt="" />
                   <span className="font-bold text-xl bg-linear-to-r from-[#6c36e5] to-[#9b5ff1] bg-clip-text text-transparent">
-                     Hero.IO
+                     AppNexus
                   </span>
                </Link>
             </div>

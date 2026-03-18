@@ -6,12 +6,17 @@ import {
    deleteInstalledApp,
    getInstalledApps,
 } from '../../utilities/localstorage';
+import { toast } from 'react-toastify';
+import NoInstalledApps from '../../Components/NoInstalledApps';
+import DataLoading from '../../Components/Shared/DataLoading';
 
 const Installation = () => {
    const allApps = useLoaderData();
    const [installedApps, setInstalledApps] = useState([]);
+   const [loading, setLoading] = useState(false);
 
    useEffect(() => {
+      setLoading(true);
       const installedIds = getInstalledApps();
       // console.log(installedIds);
       const installedApps = allApps.filter((app) =>
@@ -19,18 +24,34 @@ const Installation = () => {
       );
       // console.log(InstalledApps)
       setInstalledApps(installedApps);
+      setLoading(false);
    }, [allApps]);
-
-
-
-
 
    const handleUninstall = (id) => {
       deleteInstalledApp(id);
       const remainingInstallApps = installedApps.filter((app) => app.id !== id);
       // console.log(remainingInstallApps);
-      setInstalledApps(remainingInstallApps)
+      setInstalledApps(remainingInstallApps);
+      toast.success('App uninstalled successfully!', {
+         position: 'top-right',
+         autoClose: 2000,
+      });
    };
+
+   const handleSortInstalledApps = (e) => {
+      setLoading(true);
+      const selectedValue = e.target.value;
+      if (selectedValue === 'ascending') {
+         const lowToHigh = [...installedApps].sort((a, b) => a.size - b.size);
+         setInstalledApps(lowToHigh);
+         setLoading(false);
+      } else {
+         const highToLow = [...installedApps].sort((a, b) => b.size - a.size);
+         setInstalledApps(highToLow);
+         setLoading(false);
+      }
+   };
+
    return (
       <Section>
          <div className="py-20">
@@ -46,25 +67,33 @@ const Installation = () => {
                   ({installedApps.length}) Apps Found
                </p>
                <select
-                  defaultValue="Pick a color"
-                  className="select w-44  bg-[#f5f5f5] border border-gray-300"
+                  disabled={installedApps.length===0}
+                  onChange={(e) => handleSortInstalledApps(e)}
+                  className="select w-44 bg-[#f5f5f5] border border-gray-300"
+                  defaultValue="default"
                >
-                  <option disabled={true}>Sort By</option>
-                  <option>Crimson</option>
-                  <option>Amber</option>
+                  <option value="default" disabled>
+                     Sort by Size
+                  </option>
+                  <option value="ascending">Low to High</option>
+                  <option value="descending">High to Low</option>
                </select>
             </div>
 
             {/* Installed Apps */}
-            <div className="mt-5 space-y-2.5">
-               {installedApps.map((app) => (
-                  <InstallationCard
-                     key={app.id}
-                     app={app}
-                     handleUninstall={handleUninstall}
-                  />
-               ))}
-            </div>
+            {installedApps.length === 0 ? (
+               <NoInstalledApps />
+            ) : (
+               <div className="mt-5 space-y-2.5">
+                  {installedApps.map((app) => (
+                     <InstallationCard
+                        key={app.id}
+                        app={app}
+                        handleUninstall={handleUninstall}
+                     />
+                  ))}
+               </div>
+            )}
          </div>
       </Section>
    );

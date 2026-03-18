@@ -4,11 +4,13 @@ import HomePage from '../Pages/Home/HomePage';
 import AppsPage from '../Pages/Apps/Apps';
 import AppDetails from '../Pages/AppDetails/AppDetails';
 import Installation from '../Pages/Installation/Installation';
+import PageNotFound from '../Pages/PageNotFound./PageNotFound';
 
 export const router = createBrowserRouter([
    {
       path: '/',
       Component: Root,
+      errorElement: <PageNotFound />,
       children: [
          {
             index: true,
@@ -29,6 +31,10 @@ export const router = createBrowserRouter([
             path: 'installation',
             Component: Installation,
             loader: () => fetch('/AppData.json'),
+         },
+         {
+            path: '*',
+            Component: PageNotFound,
          },
       ],
    },

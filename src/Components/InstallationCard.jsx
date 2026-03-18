@@ -30,7 +30,7 @@ const InstallationCard = ({ app, handleUninstall }) => {
                {/* text div */}
                <div className="">
                   <h2 className="text-md font-medium text-black">{title}</h2>
-                  <div className="flex justify-start items-center gap-5 mt-3">
+                  <div className="flex flex-wrap justify-start items-center gap-5 mt-3">
                      <h6 className="text-green-300 font-medium flex items-center gap-1">
                         <Download />
                         <span>{downloads}</span>
@@ -39,7 +39,7 @@ const InstallationCard = ({ app, handleUninstall }) => {
                         <FaStar />
                         <span>{ratingAvg}</span>
                      </h6>
-                     <h6 className="text-gray-400 font-medium ">{size}</h6>
+                     <h6 className="text-gray-400 font-medium ">{size} MB</h6>
                   </div>
                </div>
             </div>

@@ -12,11 +12,15 @@ import {
    getIsInstalledApp,
 } from '../../utilities/localstorage';
 import { toast } from 'react-toastify';
+import AppNotFound from '../../Components/AppNotFound';
 
 const AppDetails = () => {
    const apps = useLoaderData();
    const { id } = useParams();
-   const appDetails = apps.find((app) => app.id == parseInt(id));
+   const appDetails = apps.find((app) => app.id == parseInt(id)) || {};
+   // console.log(Object.keys(appDetails).length);
+   const isFoundApp = Object.keys(appDetails).length === 0;
+   console.log(isFoundApp);
    const {
       id: appId,
       title,
@@ -30,6 +34,8 @@ const AppDetails = () => {
       ratings,
    } = appDetails;
    const [install, setInstall] = useState(false);
+
+   const segment = Math.floor(description.length / 3);
 
    const handleInstall = (id) => {
       setInstall(true);
@@ -47,84 +53,106 @@ const AppDetails = () => {
       };
       setDownloadStatus();
    }, [appId]);
-   console.log('installed Status', install);
+   // console.log('installed Status', install);
    return (
       <Section>
          <div className="py-20">
-            <div className="grid  grid-cols-11 gap-5 lg:gap-10">
-               <div className="col-span-11 md:col-span-4 lg:col-span-4">
-                  <img
-                     className="w-full h-70 object-cover rounded"
-                     src={image}
-                     alt={title}
-                  />
-               </div>
-
-               <div className="col-span-11 md:col-span-7 lg:col-span-7 flex flex-col justify-center space-y-2">
-                  <h2 className="text-3xl font-bold">{title}</h2>
-                  <p className="text-gray-500">
-                     Developed By{' '}
-                     <span className="font-semibold text-violet-600">
-                        {companyName}
-                     </span>{' '}
-                  </p>
-
-                  <div className="divider my-1"></div>
-
-                  <div className="flex flex-wrap justify-start items-center gap-10 lg:gap-20 py-4">
-                     <div className="space-y-0.5">
+            {isFoundApp ? (
+               <AppNotFound />
+            ) : (
+               <div>
+                  <div className="grid  grid-cols-11 gap-5 lg:gap-10">
+                     <div className="col-span-11 md:col-span-4 lg:col-span-4">
                         <img
-                           src={download}
-                           alt="download Icon"
-                           className="size-6"
+                           className="w-full h-70 object-cover rounded"
+                           src={image}
+                           alt={title}
                         />
-                        <p className="text-sm text-gray-500">Downloads</p>
-                        <h5 className="text-black font-extrabold text-2xl">
-                           {downloads}
-                        </h5>
                      </div>
-                     <div className="space-y-1">
-                        <img
-                           src={rating}
-                           alt="rating icon"
-                           className="size-6"
-                        />
-                        <p className="text-sm text-gray-500">Average Rating</p>
-                        <h5 className="text-black font-extrabold text-2xl">
-                           {ratingAvg}
-                        </h5>
-                     </div>
-                     <div className="space-y-0.5">
-                        <img
-                           src={review}
-                           alt="review icon"
-                           className="size-6"
-                        />
-                        <p className="text-sm text-gray-500">Total Reviews</p>
-                        <h5 className="text-black font-extrabold text-2xl">
-                           {reviews}
-                        </h5>
+
+                     <div className="col-span-11 md:col-span-7 lg:col-span-7 flex flex-col justify-center space-y-2">
+                        <h2 className="text-3xl font-bold">{title}</h2>
+                        <p className="text-gray-500">
+                           Developed By{' '}
+                           <span className="font-semibold text-violet-600">
+                              {companyName}
+                           </span>{' '}
+                        </p>
+
+                        <div className="divider my-1"></div>
+
+                        <div className="flex flex-wrap justify-start items-center gap-10 lg:gap-20 py-4">
+                           <div className="space-y-0.5">
+                              <img
+                                 src={download}
+                                 alt="download Icon"
+                                 className="size-6"
+                              />
+                              <p className="text-sm text-gray-500">Downloads</p>
+                              <h5 className="text-black font-extrabold text-2xl">
+                                 {downloads}
+                              </h5>
+                           </div>
+                           <div className="space-y-1">
+                              <img
+                                 src={rating}
+                                 alt="rating icon"
+                                 className="size-6"
+                              />
+                              <p className="text-sm text-gray-500">
+                                 Average Rating
+                              </p>
+                              <h5 className="text-black font-extrabold text-2xl">
+                                 {ratingAvg}
+                              </h5>
+                           </div>
+                           <div className="space-y-0.5">
+                              <img
+                                 src={review}
+                                 alt="review icon"
+                                 className="size-6"
+                              />
+                              <p className="text-sm text-gray-500">
+                                 Total Reviews
+                              </p>
+                              <h5 className="text-black font-extrabold text-2xl">
+                                 {reviews}
+                              </h5>
+                           </div>
+                        </div>
+
+                        <button
+                           disabled={install}
+                           onClick={() => handleInstall(appId)}
+                           className={`btn ${install ? 'bg-gray-300 text-slate-600 cursor-not-allowed' : 'bg-[#00d390] hover:bg-[#00b97e] text-white cursor-pointer'}  border-none w-fit px-8 mt-4`}
+                        >
+                           {install ? 'Installed' : `Install Now (${size} MB)`}
+                        </button>
                      </div>
                   </div>
-
-                  <button
-                     disabled={install}
-                     onClick={() => handleInstall(appId)}
-                     className={`btn ${install ? 'bg-gray-300 text-slate-600 cursor-not-allowed' : 'bg-[#00d390] hover:bg-[#00b97e] text-white cursor-pointer'}  border-none w-fit px-8 mt-4`}
-                  >
-                     {install ? 'Installed' : `Install Now (${size})`}
-                  </button>
+                  <div className="divider my-8"></div>
+                  {/* Charts */}
+                  <RatingChart ratings={ratings || []} />
+                  <div className="divider my-6"></div>
+                  {/* Descriptions */}
+                  <h6 className="mb-3 font-semibold text-lg">Description</h6>
+                  <p className="text-gray-500 leading-relaxed space-y-5 first-letter:uppercase">
+                     {description.slice(0, segment)}
+                  </p>
+                  <br />
+                 
+                  <p className="text-gray-500 leading-relaxed space-y-5 first-letter:uppercase">
+                     {description.slice(segment, segment * 2)}
+                  </p>
+                  <br />
+                  
+                  <p className="text-gray-500 leading-relaxed space-y-5 first-letter:uppercase">
+                     {description.slice(segment * 2)}
+                  </p>
                </div>
-            </div>
-            <div className="divider my-8"></div>
-            {/* Charts */}
-            <RatingChart ratings={ratings} />
-            <div className="divider my-6"></div>
-            {/* Descriptions */}
-            <h6 className="mb-3 font-semibold text-lg">Description</h6>
-            <p className="text-gray-500 leading-relaxed space-y-5">
-               {description}
-            </p>
+            )}
+
+            {/* App details */}
          </div>
       </Section>
    );
